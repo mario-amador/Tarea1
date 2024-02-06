@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
 SafeAreaView,
@@ -13,8 +13,20 @@ Button,
 } from 'react-native';
 import { ScreenContext } from 'react-native-screens';
 import { useNavigation } from '@react-navigation/native';
+import Evaluacion from '../componets/evaluacion/Evaluacion';
 
 const Perfil_MARIO = ({ navigation }) => {
+
+  const [calificacion, setcalificacion] = useState (0);
+
+  const handleCalificacionChange = (valor:number) => {
+    if (calificacion == 1 &&  valor == 1){
+      setcalificacion(0);
+    } else {
+      setcalificacion(valor);
+    }
+  };
+  
   const handleBackToMenu = () => {
     navigation.navigate('Home');
     };
@@ -28,6 +40,7 @@ const Perfil_MARIO = ({ navigation }) => {
               style={styles.fotoPerfil}
               source={require('../imagenes/IMG-20230901-WA0024.jpg')}
             />
+            <Evaluacion calificacion={calificacion} onCalificacionChange={handleCalificacionChange} />
             <Text style={styles.encabezado}>Mario Antonio Acosta Amador</Text>
             <View style={styles.seccion}>
               <Text style={styles.seccionHeader}>Lugar de Nacimiento:</Text>
@@ -59,7 +72,7 @@ const Perfil_MARIO = ({ navigation }) => {
     
     const styles = StyleSheet.create({
       encabezado: {
-        fontSize: 36,
+        fontSize: 23,
         fontWeight: 'bold',
         color: '#0000ff',
         marginTop: 10,
